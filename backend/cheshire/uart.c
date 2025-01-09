@@ -96,3 +96,13 @@ void print_uart_byte(uint8_t byte)
     write_serial(hex[0]);
     write_serial(hex[1]);
 }
+
+void uart_write_flush()
+{
+    asm volatile ("fence");
+    int write_done = 0;
+    while (!write_done)
+    {
+        write_done = (read_reg_u8(UART_LINE_STATUS) & 0x60) == 0x60;
+    }
+}

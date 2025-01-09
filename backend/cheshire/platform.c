@@ -63,6 +63,7 @@ void put_char(char c)
 
 void plat_exit(int code)
 {
+  uart_write_flush();
   *reg32((void*)0x3000000, CHESHIRE_SCRATCH_2_REG_OFFSET) = (code << 1) | 1;
   asm volatile ("fence");
 }

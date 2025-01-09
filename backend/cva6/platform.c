@@ -58,7 +58,7 @@ void put_char(char c)
   write_serial(c);
 }
 
-void exit(int code)
+void plat_exit(int code)
 {
   // Write to to_host
   *(volatile uint32_t *) 0x90000000 = 1;
